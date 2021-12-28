@@ -1,0 +1,72 @@
+dependencies:
+  - name: usermgmt-dev
+    repository: "file://envs/usermgmt-dev"
+    version: ">= 0.0.1"
+    tags:
+      - dev
+    import-values:
+      - data
+
+  - name: usermgmt-perf
+    repository: "file://envs/usermgmt-perf"
+    version: ">= 0.0.1"
+    tags:
+      - perf
+    import-values:
+      - data
+
+  - name: usermgmt-qa
+    repository: "file://envs/usermgmt-qa"
+    version: ">= 0.0.1"
+    tags:
+      - qa
+    import-values:
+      - data
+
+  - name: usermgmt-uat
+    repository: "file://envs/usermgmt-uat"
+    version: ">= 0.0.1"
+    tags:
+      - uat
+    import-values:
+      - data
+
+  - name: usermgmt-trng
+    repository: "file://envs/usermgmt-trng"
+    version: ">= 0.0.1"
+    tags:
+      - trng
+    import-values:
+      - data
+      
+  - name: usermgmt-altdev
+    repository: "file://envs/usermgmt-altdev"
+    version: ">= 0.0.1"
+    tags:
+      - altdev
+    import-values:
+      - data  
+
+  - name: usermgmt-prod
+    repository: "file://envs/usermgmt-prod"
+    version: ">= 0.0.1"
+    tags:
+      - prod
+    import-values:
+      - data       
+
+  - name: usermgmt-altqa
+    repository: "file://envs/usermgmt-altqa"
+    version: ">= 0.0.1"
+    tags:
+      - altqa
+    import-values:
+      - data       
+
+  - name: usermgmt-prdspt
+    repository: "file://envs/usermgmt-prdspt"
+    version: ">= 0.0.1"
+    tags:
+      - prdspt
+    import-values:
+      - data     

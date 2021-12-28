@@ -1,0 +1,45 @@
+# Perf values for usermgmt.
+nameOverride: usermgmt
+exports:
+  data:
+    enable_cors: true
+    hosts: https://portalperf.mybbsi.com
+    ssl_redirect: true
+    replicaCount: 1
+    image:
+      pullPolicy: Always
+    telemetry:
+      level: "Information"
+    reason: "new perf deploy"
+    current: true
+    ingress:
+      class: "nginx-perf"
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 2Gi
+      limits:
+        cpu: 2000m
+        memory: 4Gi
+    autoscaling:
+      enabled: false
+      maxReplicas: 6
+      minReplicas: 3
+      targetCPUUtilizationPercentage: 75
+    env:
+      user_management: http://usermgmt.backend-perf.svc.cluster.local:8801
+      employee_management: http://empmgmt.backend-perf.svc.cluster.local:8803
+      notification_management: http://notifymgmt.backend-perf.svc.cluster.local:8807
+      integration_management: http://intmgmt.backend-perf.svc.cluster.local:8810
+      reference_mgmt: http://refmgmt.backend-perf.svc.cluster.local:8804
+      employee_newhire: http://newhire.backend-perf.svc.cluster.local:8806
+      dashboard: http://dashboard.backend-perf.svc.cluster.local:8808
+      client: http://client.backend-perf.svc.cluster.local:8802
+      reportsmgmt: http://reportsmgmt.backend-perf.svc.cluster.local:8812
+      jobmgmt: http://jobmgmt.backend-perf.svc.cluster.local:8814
+      tokenmgmt: http://tokenmgmt.backend-perf.svc.cluster.local:8813
+      confserver: http://confserver.backend-perf.svc.cluster.local:4000
+      rabbitmqhost: rabbitmq.rabbitmq-perf.svc.cluster.local
+      rabbitmqport: 5672
+      audit_enable: true
+      datadog_env: perf

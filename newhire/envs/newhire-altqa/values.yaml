@@ -1,0 +1,48 @@
+# altqa values for newhire.
+# nameOverride: newhire
+exports:
+  data:
+    enable_cors: true
+    hosts: http://qa.mybbsi.com
+    ssl_redirect: true   
+    replicaCount: 1
+    enable_probes: true
+    readinessProbe:
+      initialDelaySeconds: 150
+      periodSeconds: 30
+      timeoutSeconds: 5
+      failureThreshold: 5
+    livenessProbe:
+      initialDelaySeconds: 150
+      periodSeconds: 30
+    image:
+      pullPolicy: Always
+    telemetry:
+      level: "Information"
+    reason: "new altqa deploy"
+    current: true
+    ingress:
+      class: "nginx-altqa"
+    resources:
+      requests:
+        cpu: 500m
+        memory: 1024Mi
+      limits:
+        cpu: 1000m
+        memory: 3096Mi
+    env:
+      user_management: http://usermgmt.backend-altqa.svc.cluster.local:8801
+      employee_management: http://empmgmt.backend-altqa.svc.cluster.local:8803
+      notification_management: http://notifymgmt.backend-altqa.svc.cluster.local:8807
+      integration_management: http://intmgmt.backend-altqa.svc.cluster.local:8810
+      reference_mgmt: http://refmgmt.backend-altqa.svc.cluster.local:8804
+      employee_newhire: http://newhire.backend-altqa.svc.cluster.local:8806
+      dashboard: http://dashboard.backend-altqa.svc.cluster.local:8808
+      client: http://client.backend-altqa.svc.cluster.local:8802
+      reportsmgmt: http://reportsmgmt.backend-altqa.svc.cluster.local:8812
+      jobmgmt: http://jobmgmt.backend-altqa.svc.cluster.local:8814
+      tokenmgmt: http://tokenmgmt.backend-altqa.svc.cluster.local:8813
+      confserver: http://confserver.backend-altqa.svc.cluster.local:4000
+      rabbitmqhost: rabbitmq.rabbitmq-altqa.svc.cluster.local
+      rabbitmqport: 5672
+      audit_enable: true

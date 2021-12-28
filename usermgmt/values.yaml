@@ -1,0 +1,59 @@
+# Default values for usermgmt.
+nameOverride: usermgmt
+replicaCount: 1
+dockerregistry:
+image:
+  repository:
+  tag:
+  pullPolicy: Always
+# readinessProbe:
+#   httpGet:
+#     path: /user/management/health/readiness
+#     port: 8801
+#   initialDelaySeconds: 150
+#   periodSeconds: 30
+#   timeoutSeconds: 5
+#   failureThreshold: 5
+# livenessProbe:
+#   httpGet:
+#     path: /user/management/health/liveness
+#     port: 8801
+#   initialDelaySeconds: 150
+#   periodSeconds: 30
+telemetry:
+  level: "Error"
+reason: unknown
+tags:
+  dev: false
+  perf: false
+  qa: false
+  uat: false
+  trng: false
+  altdev: false
+  altqa: false
+  prod: false
+current: false
+autoscaling:
+  enabled: false
+  maxReplicas:
+  minReplicas:
+  targetCPUUtilizationPercentage:
+env:
+  user_management:
+  employee_management:
+  notification_management:
+  integration_management:
+  reference_mgmt:
+  employee_newhire:
+  #reporting:
+  dashboard:
+  # datamigrate:
+  client:
+  # confclient:
+  # confemp:
+  reportsmgmt:
+  confserver:
+  audit_enable:
+  tokenmgmt:
+  datadog_env:
+  jobmgmt:

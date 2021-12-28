@@ -1,0 +1,52 @@
+#  ------------------------------------------------------------
+#   Copyright (c) Microsoft Corporation.  All rights reserved.
+#   Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
+#  ------------------------------------------------------------
+
+###################################################################################################
+# ingress
+###################################################################################################
+{{- $svcversion := .Chart.AppVersion | replace "." "" }}
+{{- $appversion := .Chart.AppVersion }}
+{{- $defaultversionedpath := printf "/%s/" $appversion }}
+{{- $relname := .Release.Name }}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $relname }}-ingress
+  annotations:
+    kubernetes.io/ingress.class: {{ required "ingress.class is required" .Values.ingress.class | quote }}
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+             more_set_headers "Server: BBSI"
+             more_set_headers "strict-transport-security: max-age=31536000";
+    {{- if .Values.enable_cors }}
+    nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST, DELETE
+    nginx.ingress.kubernetes.io/cors-allow-origin: {{ required "A valid hostname is required!" .Values.hosts | quote }}
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    {{- end }}  
+    nginx.ingress.kubernetes.io/ssl-redirect: {{ .Values.ssl_redirect | quote }}
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-body-size: 12m
+spec:
+  {{- if .Values.ingress.tls }}
+  tls:
+  {{- range .Values.ingress.hosts }}
+  {{- if .tls }}
+  - hosts:
+    - {{ .name }}
+    secretName: {{ .tlsSecretName }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
+  rules:
+  {{- range .Values.ingress.hosts }}
+  - host: {{ .name }}
+    http:
+      paths:
+      - path: /newhire/?(.*)
+        backend:
+          serviceName: "{{ .serviceName }}"
+          servicePort: 8806
+  {{ end }}
